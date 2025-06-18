@@ -33,8 +33,7 @@ public class TimepoControler : MonoBehaviour
     {
         minutos = Mathf.Floor(tiempoRestante / 60);
         segundos = Mathf.Floor(tiempoRestante % 60);
-
-        textito.text = minutos.ToString("00") + ":" + segundos.ToString("00");
+        textito.text = minutos + ":" + segundos;
     }
     #endregion
 }
