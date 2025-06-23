@@ -2,75 +2,74 @@ using UnityEngine;
 
 public class JugadorControl : MonoBehaviour
 {
-    #region Private
+    [Header("Velocidad del jugador")]
     [SerializeField] private float velocidad = 5f;
+
+    [Header("HenoDestroyer")]
     [SerializeField] private GameObject HenoDestroyer;
 
-    [SerializeField] private int direccionX;
-    [SerializeField] private int direccionY;
+    private Rigidbody2D rb;
     private Animator animator;
-    #endregion
 
-    #region Métodos 
+    private Vector2 input;
+    private Vector2 lastDirection = Vector2.down;
+
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        MoverJugador();
+        LeerEntrada();
+        ActualizarAnimacion();
         ActualizarHenoDestroyer();
     }
-    #endregion
 
-    #region Movimiento
-    void MoverJugador()
+    void FixedUpdate()
+    {
+        MoverJugador();
+    }
+
+    void LeerEntrada()
     {
         float moveX = 0f;
         float moveY = 0f;
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            moveY = 1f;
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            moveY = -1f;
-        }
+        if (Input.GetKey(KeyCode.W)) moveY = 1f;
+        if (Input.GetKey(KeyCode.S)) moveY = -1f;
+        if (Input.GetKey(KeyCode.A)) moveX = -1f;
+        if (Input.GetKey(KeyCode.D)) moveX = 1f;
 
-        if (Input.GetKey(KeyCode.A))
+        input = new Vector2(moveX, moveY).normalized;
+
+        if (input != Vector2.zero)
         {
-            moveX = -1f;
+            lastDirection = input;
         }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            moveX = 1f;
-        }
-
-        Vector3 movimiento = new Vector3(moveX, moveY, 0f).normalized;
-
-        transform.position += movimiento * velocidad * Time.deltaTime;
-
-        if (movimiento.magnitude > 0)
-        {
-            direccionX = (int)moveX;
-            direccionY = (int)moveY;
-        }
-
-        animator.SetFloat("DirX", direccionX);
-        animator.SetFloat("DirY", direccionY);
-        animator.SetBool("Caminando", movimiento.magnitude > 0);
     }
-    #endregion
 
-    #region HenoDestroyer
+    void MoverJugador()
+    {
+        rb.linearVelocity = input * velocidad;
+    }
+
+    void ActualizarAnimacion()
+    {
+        animator.SetFloat("Horizontal", input.x);
+        animator.SetFloat("Vertical", input.y);
+        animator.SetFloat("LastHorizontal", lastDirection.x);
+        animator.SetFloat("LastVertical", lastDirection.y);
+        animator.SetBool("IsMoving", input.magnitude > 0);
+    }
+
     void ActualizarHenoDestroyer()
     {
         if (HenoDestroyer != null)
         {
-            HenoDestroyer.transform.localPosition = new Vector2(2f * direccionX, 2f * direccionY);
+            Vector2 direccion = lastDirection.normalized;
+            HenoDestroyer.transform.localPosition = new Vector2(2f * direccion.x, 2f * direccion.y);
         }
     }
-    #endregion
 }

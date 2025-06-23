@@ -7716,7 +7716,7 @@ MonoBehaviour:
   escena: {fileID: 8472001056005087182, guid: 66407dabcfc6e6942bcf6e80a4719b56, type: 3}
   audioSource: {fileID: 1408569447}
   puntosControl: {fileID: 1527406104}
-  puntosFinales: 1000
+  puntosFinales: 50
 --- !u!4 &359653814
 Transform:
   m_ObjectHideFlags: 0
@@ -14582,7 +14582,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.092690945}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -14592,7 +14592,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 3.08, y: 3.72}
+  m_Size: {x: 2.5238514, y: 3.0402617}
   m_EdgeRadius: 0
 --- !u!212 &628487658
 SpriteRenderer:
@@ -16923,7 +16923,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 2
   m_Sprite: {fileID: -1974555589385768184, guid: 597df4d267f8728498d9fb36f902b13a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -35173,8 +35173,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocidad: 5
   HenoDestroyer: {fileID: 453277373}
-  direccionX: 0
-  direccionY: 0
 --- !u!95 &1579687292
 Animator:
   serializedVersion: 7
@@ -35231,7 +35229,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0022069067, y: 0.00000012293458}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -35241,7 +35239,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.17460448, y: 0.24081272}
   m_EdgeRadius: 0
 --- !u!50 &1579687294
 Rigidbody2D:
@@ -35269,7 +35267,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!4 &1579687295
 Transform:
   m_ObjectHideFlags: 0
@@ -35279,8 +35277,8 @@ Transform:
   m_GameObject: {fileID: 1579687290}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.12, y: -2.99, z: 0}
-  m_LocalScale: {x: 7, y: 7, z: 7}
+  m_LocalPosition: {x: -1.5, y: -1.1, z: 0}
+  m_LocalScale: {x: 8, y: 8, z: 7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 453277374}
@@ -42110,7 +42108,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 15, y: 461}
+  m_AnchoredPosition: {x: 102, y: 461}
   m_SizeDelta: {x: 266.83, y: 84.87}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1821558817
@@ -42173,8 +42171,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 45
+  m_fontSizeBase: 45
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -46679,7 +46677,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 4
   m_TargetDisplay: 0
 --- !u!224 &2026458334
 RectTransform:
@@ -49691,12 +49689,12 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
+  - {fileID: 1579687295}
   - {fileID: 619394802}
   - {fileID: 2026458334}
   - {fileID: 309141439}
   - {fileID: 1942476859}
   - {fileID: 1408569448}
-  - {fileID: 1579687295}
   - {fileID: 359653814}
   - {fileID: 587797515}
   - {fileID: 729799825}
