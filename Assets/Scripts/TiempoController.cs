@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class TimepoControler : MonoBehaviour
+public class TiempoControler : MonoBehaviour
 {
     #region Variables
     TextMeshProUGUI textito;
@@ -15,13 +15,18 @@ public class TimepoControler : MonoBehaviour
     #endregion
 
     #region Métodos Unity
+
+    private void Awake()
+    {
+        textito = GetComponent<TextMeshProUGUI>();
+    }
     private void Update()
     {
         tiempo -= Time.deltaTime;
 
         if (tiempo <= 0)
         {
-            escena.Escena("perdiste");
+            escena.Escena("Perdiste");
         }
 
         MostrarTiempo(tiempo);

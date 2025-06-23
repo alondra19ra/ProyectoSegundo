@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - HenoCube
+  - enemigo
+  - Fruta
+  - Zanahoria
   layers:
   - Default
   - TransparentFX

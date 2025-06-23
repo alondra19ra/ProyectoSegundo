@@ -6,11 +6,17 @@ public class JugadorControl : MonoBehaviour
     [SerializeField] private float velocidad = 5f;
     [SerializeField] private GameObject HenoDestroyer;
 
-    private int direccionX = 0;
-    private int direccionY = 1;
+    [SerializeField] private int direccionX;
+    [SerializeField] private int direccionY;
+    private Animator animator;
     #endregion
 
-    #region Métodos 
+    #region MÃ©todos 
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     void Update()
     {
         MoverJugador();
@@ -21,30 +27,40 @@ public class JugadorControl : MonoBehaviour
     #region Movimiento
     void MoverJugador()
     {
+        float moveX = 0f;
+        float moveY = 0f;
+
         if (Input.GetKey(KeyCode.W))
         {
-            transform.position += Vector3.up * velocidad * Time.deltaTime;
-            direccionX = 0;
-            direccionY = 1;
+            moveY = 1f;
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            transform.position += Vector3.down * velocidad * Time.deltaTime;
-            direccionX = 0;
-            direccionY = -1;
+            moveY = -1f;
         }
-        else if (Input.GetKey(KeyCode.A))
+
+        if (Input.GetKey(KeyCode.A))
         {
-            transform.position += Vector3.left * velocidad * Time.deltaTime;
-            direccionX = -1;
-            direccionY = 0;
+            moveX = -1f;
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            transform.position += Vector3.right * velocidad * Time.deltaTime;
-            direccionX = 1;
-            direccionY = 0;
+            moveX = 1f;
         }
+
+        Vector3 movimiento = new Vector3(moveX, moveY, 0f).normalized;
+
+        transform.position += movimiento * velocidad * Time.deltaTime;
+
+        if (movimiento.magnitude > 0)
+        {
+            direccionX = (int)moveX;
+            direccionY = (int)moveY;
+        }
+
+        animator.SetFloat("DirX", direccionX);
+        animator.SetFloat("DirY", direccionY);
+        animator.SetBool("Caminando", movimiento.magnitude > 0);
     }
     #endregion
 
