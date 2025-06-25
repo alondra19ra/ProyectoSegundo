@@ -272,7 +272,13 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      WalkLeth_0: -7797960362102203932
+      WalkLeth_1: 3163513747293913859
+      WalkLeth_2: -4425902177882199398
+      WalkLeth_3: 5262895564852834888
+      WalkLeth_4: -1851900944874506282
+      WalkLeth_5: -4343191971668418337
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
