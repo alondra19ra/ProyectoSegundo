@@ -5,21 +5,29 @@ using UnityEngine;
 
 public class CamaraControl : MonoBehaviour
 {
-    [HeaderAttribute("Objetive Variable")]
+    #region Variables
+    [Header("Objetive Variable")]
     public GameObject Jugador;
-    [HeaderAttribute("Pocisiones en X")]
+
+    [Header("Posiciones en X")]
     public float minPositionX;
     public float maxPositionX;
     public float currentPositionX;
-    [HeaderAttribute("Pocisiones en Y")]
+
+    [Header("Posiciones en Y")]
     public float minPositionY;
     public float maxPositionY;
     public float currentPositionY;
 
     public float timeToGetOBjetive;
-    private Vector3 Velocity = new Vector3(0, 0, 0);
+    #endregion
 
+    #region Variables Privadas
+    private Vector3 Velocity = new Vector3(0, 0, 0);
     private Vector3 realObjetive;
+    #endregion
+
+    #region Métodos Unity
     private void Update()
     {
         currentPositionX = Math.Clamp(Jugador.transform.position.x, minPositionX, maxPositionX);
@@ -27,4 +35,5 @@ public class CamaraControl : MonoBehaviour
         realObjetive = new Vector3(currentPositionX, currentPositionY, -10);
         transform.position = Vector3.SmoothDamp(transform.position, realObjetive, ref Velocity, timeToGetOBjetive);
     }
+    #endregion
 }

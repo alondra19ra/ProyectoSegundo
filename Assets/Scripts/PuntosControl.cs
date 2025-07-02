@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro; // Importante para usar TextMeshProUGUI
+using TMPro;
 
 public class PuntosControl : MonoBehaviour
 {
