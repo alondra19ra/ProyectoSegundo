@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class EnemyControl : Movimientos
 {
-    #region Variables
-    [SerializeField] private GameObject objetivo;
-    [SerializeField] private GameManager control;
-    [SerializeField] private CambiarEscena escena;
-    [SerializeField] private float velocidad;
-    #endregion
+    public GameObject objetivo;
+    public GameManager control;
+    public CambiarEscena escena;
+    public float Velocidad;
 
-    #region Métodos Unity
     private void Start()
     {
         SetObjetive(objetivo);
@@ -19,11 +16,9 @@ public class EnemyControl : Movimientos
 
     private void Update()
     {
-        Mover(velocidad);
+        Mover(Velocidad);
     }
-    #endregion
 
-    #region Métodos Heredados
     protected override void Mover(float Velocidad)
     {
         base.Mover(Velocidad);
@@ -33,16 +28,10 @@ public class EnemyControl : Movimientos
     {
         base.SetObjetive(NewObjetivo);
     }
-    #endregion
-
-    #region Métodos Públicos
     public void LLenar(GameObject NewObjetivo)
     {
         SetObjetive(NewObjetivo);
     }
-    #endregion
-
-    #region Colisiones
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -50,5 +39,5 @@ public class EnemyControl : Movimientos
             escena.Escena("Perdiste");
         }
     }
-    #endregion
+
 }

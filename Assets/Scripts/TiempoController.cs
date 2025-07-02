@@ -7,7 +7,7 @@ public class TiempoControler : MonoBehaviour
 {
     #region Variables
     TextMeshProUGUI textito;
-    [SerializeField] private CambiarEscena escena; 
+    [SerializeField] private CambiarEscena escena;
     private float tiempo = 120f;
 
     private float minutos = 0f;
