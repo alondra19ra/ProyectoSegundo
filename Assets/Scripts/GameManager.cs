@@ -1,21 +1,38 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
     #region Variables
+    [Header("Referencias")]
     [SerializeField] private CambiarEscena escena;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private PuntosControl puntosControl;
+    [SerializeField] private CamaraControl camara; 
+
+    [Header("Jugador")]
+    [SerializeField] private GameObject jugadorPrefab;
+    [SerializeField] private Vector3 posicionInicial = Vector3.zero;
+
+    [Header("Condiciones de victoria")]
     [SerializeField] private float puntosFinales = 50f;
     #endregion
 
-    #region Metodos
+    #region Métodos Unity
     void Start()
     {
-        Time.timeScale = 1; 
+        GameObject nuevoJugador = Instantiate(jugadorPrefab, posicionInicial, Quaternion.identity);
+
+        if (camara != null)
+        {
+            camara.Jugador = nuevoJugador;
+        }
+        else
+        {
+            Debug.LogWarning("No se asignó la cámara en el GameManager.");
+        }
+
+        Time.timeScale = 1;
     }
 
     void Update()
@@ -24,7 +41,7 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    #region Puntos y Condición de Victoria
+    #region Lógica del juego
     void VerificarVictoria()
     {
         if (puntosFinales <= puntosControl.puntitos)
@@ -32,17 +49,26 @@ public class GameManager : MonoBehaviour
             escena.Escena("Ganaste");
         }
     }
-
     public void Aumentar(float puntitos)
     {
-        if (puntosControl != null)
+        try
         {
-            puntosControl.MasPuntos(puntitos);
+            if (puntosControl != null)
+            {
+                puntosControl.MasPuntos(puntitos);
+            }
+            else
+            {
+                Debug.LogWarning("PuntosControl no está asignado en el GameManager");
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("Error al intentar aumentar los puntos: " + ex.Message);
         }
     }
-    #endregion
 
-    #region Control del Juego
+
     public void Pausar()
     {
         Time.timeScale = 0;
@@ -57,7 +83,7 @@ public class GameManager : MonoBehaviour
     #region Audio
     public void Mute(Image image)
     {
-        if (audioSource.mute == true)
+        if (audioSource.mute)
         {
             image.color = Color.white;
             audioSource.mute = false;

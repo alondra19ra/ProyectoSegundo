@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Verdura : MonoBehaviour
+public class Verdura : MonoBehaviour, IRecolectable
 {
     #region Variables
     [SerializeField] private float puntos;
@@ -17,20 +17,49 @@ public class Verdura : MonoBehaviour
     }
     #endregion
 
+    #region Recolectar
+    public void Recolectar(GameObject recolector)
+    {
+        try
+        {
+            if (control != null)
+            {
+                control.Aumentar(Puntos);
+            }
+            else
+            {
+                Debug.LogWarning("GameManager no asignado en el objeto Verdura");
+            }
+
+            Destroy(this.gameObject);
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("Error al recolectar verdura: " + ex.Message);
+        }
+    }
+    #endregion
+
     #region Colisiones
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        try
         {
-            control.Aumentar(Puntos);
-            Destroy(this.gameObject);
-        }
+            if (collision.CompareTag("Player"))
+            {
+                Recolectar(collision.gameObject);
+            }
 
-        if (collision.gameObject.GetComponent<Zanahoria>())
+            Zanahoria otraVerdura = collision.GetComponent<Zanahoria>();
+            if (otraVerdura != null)
+            {
+                Verdura resultado = this + otraVerdura;
+                this.Puntos = resultado.puntos;
+            }
+        }
+        catch (System.Exception ex)
         {
-            Zanahoria otraVerdura = collision.gameObject.GetComponent<Zanahoria>();
-            Verdura resultado = this + otraVerdura;
-            this.Puntos = resultado.puntos;
+            Debug.LogError("Error en Verdura.OnTriggerEnter2D: " + ex.Message);
         }
     }
     #endregion

@@ -1,39 +1,45 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CamaraControl : MonoBehaviour
 {
-    #region Variables
-    [Header("Objetive Variable")]
+    #region Variables Públicas
+    [Header("Objetivo: Jugador (asignado desde GameManager)")]
     public GameObject Jugador;
 
-    [Header("Posiciones en X")]
+    [Header("Límites en X")]
     public float minPositionX;
     public float maxPositionX;
     public float currentPositionX;
 
-    [Header("Posiciones en Y")]
+    [Header("Límites en Y")]
     public float minPositionY;
     public float maxPositionY;
     public float currentPositionY;
 
-    public float timeToGetOBjetive;
+    [Header("Velocidad de seguimiento")]
+    public float timeToGetObjetive = 0.2f;
     #endregion
 
     #region Variables Privadas
-    private Vector3 Velocity = new Vector3(0, 0, 0);
+    private Vector3 velocity = Vector3.zero;
     private Vector3 realObjetive;
     #endregion
 
     #region Métodos Unity
+
     private void Update()
     {
-        currentPositionX = Math.Clamp(Jugador.transform.position.x, minPositionX, maxPositionX);
-        currentPositionY = Math.Clamp(Jugador.transform.position.y, minPositionY, maxPositionY);
-        realObjetive = new Vector3(currentPositionX, currentPositionY, -10);
-        transform.position = Vector3.SmoothDamp(transform.position, realObjetive, ref Velocity, timeToGetOBjetive);
+        if (Jugador == null)
+        {
+            return;
+        }
+
+        currentPositionX = Mathf.Clamp(Jugador.transform.position.x, minPositionX, maxPositionX);
+        currentPositionY = Mathf.Clamp(Jugador.transform.position.y, minPositionY, maxPositionY);
+
+        realObjetive = new Vector3(currentPositionX, currentPositionY, -10f);
+        transform.position = Vector3.SmoothDamp(transform.position, realObjetive, ref velocity, timeToGetObjetive);
     }
+
     #endregion
 }

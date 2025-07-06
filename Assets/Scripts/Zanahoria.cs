@@ -1,8 +1,6 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
-public class Zanahoria : Movimientos
+public class Zanahoria : Movimientos, IRecolectable
 {
     #region Variables
     [SerializeField] private GameObject objetivo;
@@ -42,6 +40,27 @@ public class Zanahoria : Movimientos
     {
         SetObjetive(NewObjetivo);
     }
+
+    public void Recolectar(GameObject recolector)
+    {
+        try
+        {
+            if (control != null)
+            {
+                control.Aumentar(Puntos);
+            }
+            else
+            {
+                Debug.LogWarning("GameManager no asignado en el objeto Zanahoria ");
+            }
+
+            Destroy(this.gameObject);
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("Error al recolectar zanahoria: " + ex.Message);
+        }
+    }
     #endregion
 
     #region Operadores
@@ -55,17 +74,23 @@ public class Zanahoria : Movimientos
     #region Colisiones
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        try
         {
-            control.Aumentar(Puntos);
-            Destroy(this.gameObject);
-        }
+            if (collision.CompareTag("Player"))
+            {
+                Recolectar(collision.gameObject);
+            }
 
-        if (collision.gameObject.GetComponent<Verdura>())
+            Verdura otraVerdura = collision.GetComponent<Verdura>();
+            if (otraVerdura != null)
+            {
+                Zanahoria resultado = this + otraVerdura;
+                this.Puntos = resultado.puntos;
+            }
+        }
+        catch (System.Exception ex)
         {
-            Verdura otraVerdura = collision.gameObject.GetComponent<Verdura>();
-            Zanahoria resultado = this + otraVerdura;
-            this.Puntos = resultado.puntos;
+            Debug.LogError("Error en Zanahoria.OnTriggerEnter2D: " + ex.Message);
         }
     }
     #endregion
